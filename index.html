@@ -1,80 +1,188 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Помощь в поиске пропавших людей</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(to right, #dfe6e9, #b2bec3);
-            color: #2d3436;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            height: 100vh;
-            margin: 0;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        .container {
-            text-align: center;
-            background: #ffffff;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
-            max-width: 600px;
-            width: 100%;
-        }
-        h1 {
-            font-size: 26px;
-            margin-bottom: 15px;
-            color: #0984e3;
-        }
-        p {
-            font-size: 17px;
-            margin-bottom: 25px;
-            color: #636e72;
-        }
-        .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            background-color: #0984e3;
-            color: #ffffff;
-            text-decoration: none;
-            border-radius: 8px;
-            font-size: 17px;
-            transition: background-color 0.3s ease;
-        }
-        .btn:hover {
-            background-color: #074f94;
-        }
-        .image-container {
-            width: 100%;
-            height: 260px;
-            overflow: hidden;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-        .image-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: top;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Поиск</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #1c1c1e;
+      color: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 800px;
+      width: 100%;
+      padding: 40px 20px;
+      box-sizing: border-box;
+    }
+
+    .image-block {
+      width: 100%;
+      overflow: hidden;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      margin-bottom: 30px;
+    }
+
+    .image-block img {
+      width: 100%;
+      display: block;
+      border-radius: 16px;
+    }
+
+    h1 {
+      font-size: 32px;
+      font-weight: 600;
+      color: #f5c542;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 18px;
+      line-height: 1.6;
+      color: #d1d0ce;
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .btn {
+      display: block;
+      width: fit-content;
+      margin: 0 auto;
+      background-color: #f5c542;
+      color: #1c1c1e;
+      text-decoration: none;
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 500;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #e0ab2f;
+    }
+
+    #surveyModal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .survey {
+      background: #2e2e30;
+      padding: 30px;
+      border-radius: 10px;
+      color: #fff;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.6);
+    }
+
+    .survey h2 {
+      margin-bottom: 20px;
+      font-size: 22px;
+    }
+
+    .survey form div {
+      margin-bottom: 20px;
+    }
+
+    .survey button {
+      background-color: #f5c542;
+      color: #1c1c1e;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .survey button:hover {
+      background-color: #e0ab2f;
+    }
+  </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="image-container">
-        <img src="https://tse3.mm.bing.net/th?id=OIP.6YPWyjzW4VR4kpLPlUx-7wHaEK&pid=Api" alt="Поиск пропавших">
-    </div>
-    <h1>Поможем найти пропавших близких</h1>
-    <p>Если ваш близкий человек пропал, мы приложим максимум усилий, чтобы помочь вам его найти.</p>
-    <a class="btn" href="https://t.me/zovbotbot" target="_blank">Начать поиск</a>
+<div id="surveyModal">
+  <div class="survey">
+    <h2>Ответьте на несколько вопросов</h2>
+    <form id="surveyForm">
+      <div>
+        <label>1. Приходилось ли вам когда-либо искать пропавшего человека?</label><br>
+        <input type="radio" name="q1" value="yes"> Да<br>
+        <input type="radio" name="q1" value="no"> Нет<br>
+        <input type="radio" name="q1" value="someone"> Знаю кого-то, кто искал<br>
+        <input type="radio" name="q1" value="skip"> Не хочу отвечать<br>
+      </div>
+      <div>
+        <label>2. Есть ли у вас родственники, о которых вы почти ничего не знаете?</label><br>
+        <input type="radio" name="q2" value="yes"> Да<br>
+        <input type="radio" name="q2" value="no"> Нет<br>
+        <input type="radio" name="q2" value="maybe"> Возможно<br>
+        <input type="radio" name="q2" value="skip"> Не хочу отвечать<br>
+      </div>
+      <div>
+        <label>3. Когда вы в последний раз интересовались судьбой дальних родственников?</label><br>
+        <input type="radio" name="q3" value="recently"> Недавно<br>
+        <input type="radio" name="q3" value="longago"> Давно<br>
+        <input type="radio" name="q3" value="never"> Никогда<br>
+        <input type="radio" name="q3" value="skip"> Не хочу отвечать<br>
+      </div>
+      <div>
+        <label>4. Считаете ли вы, что важно знать, где находятся ваши родные?</label><br>
+        <input type="radio" name="q4" value="yes"> Да<br>
+        <input type="radio" name="q4" value="no"> Нет<br>
+        <input type="radio" name="q4" value="depends"> Зависит от ситуации<br>
+        <input type="radio" name="q4" value="skip"> Не хочу отвечать<br>
+      </div>
+      <div>
+        <label>5. Хотели бы вы получить помощь в поиске родных?</label><br>
+        <input type="radio" name="q5" value="yes"> Да, это актуально<br>
+        <input type="radio" name="q5" value="maybe"> Возможно позже<br>
+        <input type="radio" name="q5" value="no"> Нет, не нужно<br>
+        <input type="radio" name="q5" value="skip"> Не хочу отвечать<br>
+      </div>
+      <button type="submit">Продолжить</button>
+    </form>
+  </div>
 </div>
+
+<div class="container">
+  <div class="image-block">
+    <img src="search-promo.png" alt="Помощь в поиске людей">
+  </div>
+  <h1>Центр помощи в поиске людей</h1>
+  <p>Потеряли связь с близкими или хотите узнать больше о родне? Мы помогаем восстанавливать утраченные связи. Надёжно. Конфиденциально. Человечно.</p>
+  <a class="btn" href="https://t.me/zovbotbot">Связаться с нами</a>
+</div>
+
+<script>
+  document.getElementById('surveyForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    document.getElementById('surveyModal').style.display = 'none';
+    window.location.href = "https://t.me/zovbotbot";
+  });
+</script>
 
 </body>
 </html>
+
+ 
